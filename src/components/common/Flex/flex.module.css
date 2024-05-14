@@ -1,0 +1,35 @@
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.flexStart {
+  justify-content: flex-start;
+}
+
+.spaceBetween {
+  justify-content: space-between;
+}
+
+.noGap {
+  gap: 0px;
+}
+
+.gapSmall {
+  gap: 4px;
+}
+
+.gapMedium {
+  gap: 8px;
+}
+
+.gapLarge {
+  gap: 12px;
+}

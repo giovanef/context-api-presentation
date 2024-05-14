@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  min-height: calc(100vh - 104px);
+  padding: 24px 0;
+  gap: 16px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
