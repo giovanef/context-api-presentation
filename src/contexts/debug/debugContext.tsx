@@ -8,7 +8,7 @@ export const DebugContext = createContext<IDebugContext>(false);
 
 export const DebugProvider = ({ children }: IDebugProviderProps): JSX.Element => {
   return (
-    <DebugContext.Provider value={true}>
+    <DebugContext.Provider value={false}>
       {children}
     </DebugContext.Provider>
   );

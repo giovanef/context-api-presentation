@@ -10,7 +10,7 @@ import styles from './loadingcontext.module.css';
 export const LoadingContext = createContext<ILoadingContext>(LOADING_DEFAULT_VALUE);
 
 export const LoadingProvider = ({ children }: ILoadingProviderProps): JSX.Element => {
-  const [isLoading, setIsLoading] = useState<LoadingInterface>({ status: false })
+  const [isLoading, setIsLoading] = useState<LoadingInterface>({ status: false });
 
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
