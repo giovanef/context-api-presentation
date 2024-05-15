@@ -2,16 +2,12 @@
 
 import { createContext, useContext, useState } from "react";
 
+import { LOADING_DEFAULT_VALUE } from "./loadingContext.consts";
 import { ILoadingContext, ILoadingProviderProps, LoadingInterface } from "./loadingContext.types";
 
 import styles from './loadingcontext.module.css';
 
-const defaultValue = {
-  isLoading: {status: false},
-  setIsLoading: () => null,
-};
-
-export const LoadingContext = createContext<ILoadingContext>(defaultValue);
+export const LoadingContext = createContext<ILoadingContext>(LOADING_DEFAULT_VALUE);
 
 export const LoadingProvider = ({ children }: ILoadingProviderProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<LoadingInterface>({ status: false })
