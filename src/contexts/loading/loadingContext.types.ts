@@ -1,4 +1,4 @@
-export interface ILoadingStorageProps {
+export interface ILoadingProviderProps {
   children: React.ReactNode;
 }
 

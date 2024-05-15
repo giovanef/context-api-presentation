@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 
-import { ILoadingContext, ILoadingStorageProps, LoadingInterface } from "./loadingContext.types";
+import { ILoadingContext, ILoadingProviderProps, LoadingInterface } from "./loadingContext.types";
 
 import styles from './loadingcontext.module.css';
 
@@ -13,7 +13,7 @@ const defaultValue = {
 
 export const LoadingContext = createContext<ILoadingContext>(defaultValue);
 
-export const LoadingStorage = ({ children }: ILoadingStorageProps): JSX.Element => {
+export const LoadingProvider = ({ children }: ILoadingProviderProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<LoadingInterface>({ status: false })
 
   const contextValue = {

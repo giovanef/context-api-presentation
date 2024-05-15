@@ -1,4 +1,4 @@
-export interface IDebugStorageProps {
+export interface IDebugProviderProps {
   children: React.ReactNode;
 }
 

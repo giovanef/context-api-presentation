@@ -3,8 +3,8 @@ import { Open_Sans } from "next/font/google";
 
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
-import { DebugStorage } from "@/contexts/debug";
-import { LoadingStorage } from "@/contexts/loading";
+import { DebugProvider } from "@/contexts/debug";
+import { LoadingProvider } from "@/contexts/loading";
 
 import "./globals.css";
 
@@ -22,8 +22,8 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
   return (
     <html lang="pt-br">
       <body className={opensans.className}>
-        <DebugStorage>
-          <LoadingStorage>
+        <DebugProvider>
+          <LoadingProvider>
             <Header />
       
             <main>
@@ -31,8 +31,8 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
             </main>
 
             <Footer />
-          </LoadingStorage>
-        </DebugStorage>
+          </LoadingProvider>
+        </DebugProvider>
       </body>
     </html>
   );

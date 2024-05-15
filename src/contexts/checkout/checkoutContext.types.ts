@@ -1,6 +1,6 @@
 import { CheckoutInterface } from "@/types";
 
-export interface ICheckoutStorageProps {
+export interface ICheckoutProviderProps {
   children: React.ReactNode;
 }
 

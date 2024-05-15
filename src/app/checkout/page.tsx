@@ -1,12 +1,12 @@
 import CheckoutContent from '@/components/pages/checkout/CheckoutContent';
 import CheckoutSidebar from '@/components/pages/checkout/CheckoutSidebar';
-import { CheckoutStorage } from '@/contexts/checkout';
+import { CheckoutProvider } from '@/contexts/checkout';
 
 import styles from "./checkout.module.css";
 
 export default function Checkout() {
   return (
-    <CheckoutStorage>
+    <CheckoutProvider>
       <div className={styles.container}>
         <div className={styles.content}>
           <CheckoutContent />
@@ -16,6 +16,6 @@ export default function Checkout() {
           <CheckoutSidebar />
         </div>
       </div>
-    </CheckoutStorage>
+    </CheckoutProvider>
   );
 }

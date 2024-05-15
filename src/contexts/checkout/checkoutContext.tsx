@@ -7,7 +7,7 @@ import { delay } from "@/helpers/delay";
 import { checkoutMock } from "@/mocks";
 import { CheckoutInterface, ItemInterface } from "@/types";
 
-import { ICheckoutContext, ICheckoutStorageProps } from "./checkoutContext.types";
+import { ICheckoutContext, ICheckoutProviderProps } from "./checkoutContext.types";
 import { useLoading } from "../loading";
 
 const defaultValues = {
@@ -23,7 +23,7 @@ export const CheckoutContext = createContext<ICheckoutContext>(defaultValues);
 
 const DELAY = 1500;
 
-export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Element => {
+export const CheckoutProvider = ({ children }: ICheckoutProviderProps): JSX.Element => {
   const [checkoutData, setCheckoutData] = useState<CheckoutInterface | null>(checkoutMock)
 
   const router = useRouter();
