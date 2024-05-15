@@ -8,7 +8,9 @@ export interface LoadingInterface {
 }
 
 export interface ILoadingContext {
-  // estados do contexto
+  // estados
   isLoading: LoadingInterface;
+
+  // ações
   setIsLoading: React.Dispatch<React.SetStateAction<LoadingInterface>>;
 }

@@ -1,22 +1,19 @@
+'use client';
+
 import Flex from '@/components/common/Flex';
-import { useCheckout } from '@/contexts/checkout';
 import { useDebug } from '@/contexts/debug';
 import { ItemInterface } from '@/types';
 
 type ProductCardProps = {
   product: ItemInterface;
+  onRemove: () => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
-  const { removeProduct } = useCheckout();
+const ProductCard = ({ product, onRemove }: ProductCardProps) => {
   const debug = useDebug();
 
   if (debug) {
     console.log("🚀 ~ ProductCard renderizou")
-  }
-
-  const handleRemoveProduct = () => {
-    removeProduct(product.id);
   }
 
   return (
@@ -26,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </Flex>
       
       <div style={{ textAlign: 'right' }}>
-        <button onClick={handleRemoveProduct}>Remover</button>
+        <button onClick={onRemove}>Remover</button>
       </div>
     </Flex>
   );

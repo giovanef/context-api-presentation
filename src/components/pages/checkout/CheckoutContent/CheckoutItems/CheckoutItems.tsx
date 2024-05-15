@@ -1,9 +1,10 @@
 'use client'
 
 import Flex from '@/components/common/Flex';
-import ProductCard from '@/components/pages/checkout/CheckoutContent/ProductCard';
 import { useCheckout } from '@/contexts/checkout';
 import { useDebug } from '@/contexts/debug';
+
+import CheckoutItem from '../CheckoutItem';
 
 const CheckoutItems = () => {
   const { checkoutData } = useCheckout();
@@ -21,7 +22,7 @@ const CheckoutItems = () => {
     <Flex direction='column' gap='gapMedium'>
       {checkoutData.items.map(product => { 
         return (
-          <ProductCard key={product.id} product={product} />
+          <CheckoutItem key={product.id} product={product} />
         );
       })}
     </Flex>
