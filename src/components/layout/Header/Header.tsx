@@ -1,6 +1,15 @@
+'use client';
+
 import Link from "next/link";
 
+import { useDebug } from "@/contexts/debug";
+
 const Header = () => {
+  const debug = useDebug();
+
+  if (debug) {
+    console.log("🚀 ~ Header renderizou")
+  }
   return (
     <header>
       <div>

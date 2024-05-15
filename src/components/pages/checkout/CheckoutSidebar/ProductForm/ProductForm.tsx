@@ -4,9 +4,15 @@ import { useRef } from "react";
 
 import Flex from "@/components/common/Flex";
 import { useCheckout } from "@/contexts/checkout";
+import { useDebug } from "@/contexts/debug";
 
 const ProductForm = () => {
   const { addProduct } = useCheckout();
+  const debug = useDebug();
+
+  if (debug) {
+    console.log("🚀 ~ ProductForm renderizou")
+  }
 
   const inputRef = useRef<HTMLInputElement>(null);
 

@@ -2,13 +2,13 @@
 
 import { createContext, useContext } from "react";
 
-import { IDebugContext, IDebugStorageProps } from "./loadingContext.types";
+import { IDebugContext, IDebugStorageProps } from "./debuggContext.types";
 
 export const DebugContext = createContext<IDebugContext>(false);
 
 export const DebugStorage = ({ children }: IDebugStorageProps): JSX.Element => {
   return (
-    <DebugContext.Provider value={false}>
+    <DebugContext.Provider value={true}>
       {children}
     </DebugContext.Provider>
   );

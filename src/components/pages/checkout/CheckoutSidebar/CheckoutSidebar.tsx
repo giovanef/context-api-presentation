@@ -4,6 +4,7 @@ import Button from "@/components/common/Button";
 import Card from "@/components/common/Card";
 import Flex from "@/components/common/Flex";
 import { useCheckout } from '@/contexts/checkout';
+import { useDebug } from "@/contexts/debug";
 import { toMonetary } from "@/helpers/money";
 
 import styles from "./checkoutsidebar.module.css";
@@ -12,6 +13,11 @@ import CouponForm from "./CouponForm";
 
 const CheckoutSidebar = () => {
   const { checkoutData, pay } = useCheckout();
+  const debug = useDebug();
+
+  if (debug) {
+    console.log("🚀 ~ CheckoutSidebar renderizou")
+  }
 
   if (!checkoutData) {
     return null;
