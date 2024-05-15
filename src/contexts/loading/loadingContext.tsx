@@ -10,6 +10,7 @@ const defaultValue = {
   isLoading: {status: false},
   setIsLoading: () => null,
 };
+
 export const LoadingContext = createContext<ILoadingContext>(defaultValue);
 
 export const LoadingStorage = ({ children }: ILoadingStorageProps): JSX.Element => {
