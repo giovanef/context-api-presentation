@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { delay } from "@/helpers/delay";
@@ -29,16 +29,16 @@ export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Elemen
   const router = useRouter();
   const { setIsLoading } = useLoading();
 
-  const doAction = async (message: string, action: () => any) => {
+  const doAction = useCallback(async (message: string, action: () => any) => {
     setIsLoading({ status: true, message });
 
     await delay(DELAY);
     action();
 
     setIsLoading({ status: false });
-  }
+  }, [setIsLoading]);
 
-  const addProduct = async (productId: number) => {
+  const addProduct = useCallback(async (productId: number) => {
     doAction('Adicionando produto...', () => {
       setCheckoutData((prevState => {
         if (!prevState) {
@@ -51,12 +51,12 @@ export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Elemen
             ...prevState.items,
             { id: productId }
           ]
-        }
+        };
       }));
     });
-  }
+  }, [doAction]);
 
-  const removeProduct = async (productId: number) => {
+  const removeProduct = useCallback(async (productId: number) => {
     doAction('Removendo produto...', () => {
       setCheckoutData((prevState => {
         if (!prevState) {
@@ -77,9 +77,9 @@ export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Elemen
         };
       }));
     });
-  } 
+  }, [doAction]);
 
-  const addCoupon = async (coupon: string) => {
+  const addCoupon = useCallback(async (coupon: string) => {
     doAction('Adicionando cupom...', () => {
       setCheckoutData((prevState => {
         if (!prevState) {
@@ -92,12 +92,12 @@ export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Elemen
             code: coupon,
             value: 10
           }
-        }
+        };
       }));
     });
-  }
+  }, [doAction]);
 
-  const removeCoupon = async () => {
+  const removeCoupon = useCallback(async () => {
     doAction('Removendo cupom...', () => {
       setCheckoutData((prevState => {
         if (!prevState) {
@@ -107,25 +107,32 @@ export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Elemen
         return {
           ...prevState,
           coupon: null
-        }
+        };
       }));
     });
-  }
+  }, [doAction]);
 
-  const pay = async () => {
+  const pay = useCallback(async () => {
     doAction('Criando pedido...', () => {
       router.push(`/order?orderId=123456789`);
-    })
-  }
+    });
+  }, [doAction, router]);
 
-  const contextValue = {
+  const contextValue = useMemo(() => ({
     checkoutData,
     addProduct,
     removeProduct,
     addCoupon,
     removeCoupon,
     pay,
-  };
+  }), [
+    addCoupon,
+    addProduct,
+    checkoutData,
+    pay,
+    removeCoupon,
+    removeProduct,
+  ]);
 
   return (
     <CheckoutContext.Provider value={contextValue}>

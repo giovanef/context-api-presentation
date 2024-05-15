@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react";
 
-import { IDebugContext, IDebugStorageProps } from "./debuggContext.types";
+import { IDebugContext, IDebugStorageProps } from "./debugContext.types";
 
 export const DebugContext = createContext<IDebugContext>(false);
 

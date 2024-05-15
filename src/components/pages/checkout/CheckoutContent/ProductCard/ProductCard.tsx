@@ -1,5 +1,6 @@
 import Flex from '@/components/common/Flex';
 import { useCheckout } from '@/contexts/checkout';
+import { useDebug } from '@/contexts/debug';
 import { ItemInterface } from '@/types';
 
 type ProductCardProps = {
@@ -8,6 +9,11 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const { removeProduct } = useCheckout();
+  const debug = useDebug();
+
+  if (debug) {
+    console.log("🚀 ~ ProductCard renderizou")
+  }
 
   const handleRemoveProduct = () => {
     removeProduct(product.id);
