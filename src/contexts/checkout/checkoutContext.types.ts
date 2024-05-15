@@ -5,10 +5,14 @@ export interface ICheckoutProviderProps {
 }
 
 export interface ICheckoutContext {
-  // estados do contexto
+  // estados
   checkoutData: CheckoutInterface | null;
 
-  // ações do contexto
+  // memos
+  hasCoupon: boolean;
+  subtotal: number;
+
+  // ações
   addProduct: (productId: number) => Promise<any>
   removeProduct: (productId: number) => Promise<any>
   addCoupon: (coupon: string) => Promise<any>

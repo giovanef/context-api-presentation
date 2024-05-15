@@ -12,7 +12,7 @@ import ProductForm from "./ProductForm";
 import CouponForm from "./CouponForm";
 
 const CheckoutSidebar = () => {
-  const { checkoutData, pay } = useCheckout();
+  const { checkoutData, subtotal,  pay } = useCheckout();
   const debug = useDebug();
 
   if (debug) {
@@ -22,6 +22,8 @@ const CheckoutSidebar = () => {
   if (!checkoutData) {
     return null;
   }
+
+  const total = subtotal + checkoutData.freight - (checkoutData?.coupon?.value || 0);
 
   return (
     <>
@@ -38,7 +40,7 @@ const CheckoutSidebar = () => {
           <Flex direction="column" gap="gapMedium">
             <div className={styles.stat}>
               <div>Subtotal</div>
-              <div>R$ {toMonetary(checkoutData.subtotal)}</div>
+              <div>R$ {toMonetary(subtotal)}</div>
             </div>
             <div className={styles.stat}>
               <div>Frete</div>
@@ -52,7 +54,7 @@ const CheckoutSidebar = () => {
             )}
             <div className={styles.stat}>
               <div>Total</div>
-              <div style={{ fontSize: '20px', fontWeight: 600 }}>R$ {toMonetary(checkoutData.total - (checkoutData?.coupon?.value || 0))}</div>
+              <div style={{ fontSize: '20px', fontWeight: 600 }}>R$ {toMonetary(total)}</div>
             </div>
           </Flex>
         </div>

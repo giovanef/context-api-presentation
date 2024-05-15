@@ -7,7 +7,7 @@ import { useCheckout } from "@/contexts/checkout";
 import { useDebug } from "@/contexts/debug";
 
 const CouponForm = () => {
-  const { checkoutData, addCoupon, removeCoupon } = useCheckout();
+  const { checkoutData, addCoupon, removeCoupon, hasCoupon } = useCheckout();
   const debug = useDebug();
 
   if (debug) {
@@ -39,9 +39,9 @@ const CouponForm = () => {
         </Flex>
       </form>
 
-      {!!checkoutData?.coupon && (
+      {hasCoupon && (
         <Flex style={{ marginTop: '8px' }}>
-          <div style={{ flex: '1' }}>Cupom {checkoutData.coupon.code}</div>
+          <div style={{ flex: '1' }}>Cupom {checkoutData?.coupon?.code}</div>
           <button onClick={handleRemoveCoupon}>Remover</button>
         </Flex>
       )}

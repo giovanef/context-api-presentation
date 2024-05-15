@@ -7,21 +7,11 @@ import { delay } from "@/helpers/delay";
 import { checkoutMock } from "@/mocks";
 import { CheckoutInterface, ItemInterface } from "@/types";
 
+import { CHECKOUT_DEFAULT_VALUES, CHECKOUT_DELAY } from "./checkoutContext.consts";
 import { ICheckoutContext, ICheckoutProviderProps } from "./checkoutContext.types";
 import { useLoading } from "../loading";
 
-const defaultValues = {
-  checkoutData: null,
-  addProduct: async () => null,
-  removeProduct: async () => null,
-  addCoupon: async () => null,
-  removeCoupon: async () => null,
-  pay: async () => null
-};
-
-export const CheckoutContext = createContext<ICheckoutContext>(defaultValues);
-
-const DELAY = 1500;
+export const CheckoutContext = createContext<ICheckoutContext>(CHECKOUT_DEFAULT_VALUES);
 
 export const CheckoutProvider = ({ children }: ICheckoutProviderProps): JSX.Element => {
   const [checkoutData, setCheckoutData] = useState<CheckoutInterface | null>(checkoutMock)
@@ -29,10 +19,28 @@ export const CheckoutProvider = ({ children }: ICheckoutProviderProps): JSX.Elem
   const router = useRouter();
   const { setIsLoading } = useLoading();
 
+  const subtotal = useMemo(() => {
+    if (!checkoutData?.items) {
+      return 0;
+    }
+
+    return checkoutData.items.reduce((prevVal, item) => {
+      return prevVal + (item.price * item.quantity);
+    }, 0);
+  }, [checkoutData?.items]);
+
+  const hasCoupon = useMemo(() => {
+    if (checkoutData?.coupon) {
+      return true;
+    }
+
+    return false;
+  }, [checkoutData?.coupon]);
+
   const doAction = useCallback(async (message: string, action: () => any) => {
     setIsLoading({ status: true, message });
 
-    await delay(DELAY);
+    await delay(CHECKOUT_DELAY);
     action();
 
     setIsLoading({ status: false });
@@ -49,7 +57,7 @@ export const CheckoutProvider = ({ children }: ICheckoutProviderProps): JSX.Elem
           ...prevState,
           items: [
             ...prevState.items,
-            { id: productId }
+            { id: productId, price: 500, quantity: 1 }
           ]
         };
       }));
@@ -120,6 +128,8 @@ export const CheckoutProvider = ({ children }: ICheckoutProviderProps): JSX.Elem
 
   const contextValue = useMemo(() => ({
     checkoutData,
+    subtotal,
+    hasCoupon,
     addProduct,
     removeProduct,
     addCoupon,
@@ -129,10 +139,12 @@ export const CheckoutProvider = ({ children }: ICheckoutProviderProps): JSX.Elem
     addCoupon,
     addProduct,
     checkoutData,
+    hasCoupon,
     pay,
     removeCoupon,
     removeProduct,
-  ]);
+    subtotal,
+]);
 
   return (
     <CheckoutContext.Provider value={contextValue}>

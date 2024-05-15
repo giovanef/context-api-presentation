@@ -44,6 +44,6 @@ export interface ItemInterface {
   id: number;
   name?: string;
   image?: string;
-  quantity?: number;
-  price?: number;
+  quantity: number;
+  price: number;
 }

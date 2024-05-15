@@ -29,12 +29,18 @@ export const checkoutMock: CheckoutInterface = {
   items: [
     {
       id: 174028,
+      quantity: 1,
+      price: 500,
     },
     {
       id: 174030,
+      quantity: 1,
+      price: 500,
     },
     {
       id: 550858,
+      quantity: 1,
+      price: 500,
     }
   ]
 }
