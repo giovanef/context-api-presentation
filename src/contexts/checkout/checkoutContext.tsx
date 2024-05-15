@@ -5,14 +5,15 @@ import { useRouter } from "next/navigation";
 
 import { delay } from "@/helpers/delay";
 import { checkoutMock } from "@/mocks";
-import { CheckoutInterface } from "@/types";
+import { CheckoutInterface, ItemInterface } from "@/types";
 
 import { ICheckoutContext, ICheckoutStorageProps } from "./checkoutContext.types";
 import { useLoading } from "../loading";
 
 const defaultValues = {
   checkoutData: null,
-  setCheckoutData: () => null,
+  addProduct: async () => null,
+  removeProduct: async () => null,
   addCoupon: async () => null,
   removeCoupon: async () => null,
   pay: async () => null
@@ -20,7 +21,7 @@ const defaultValues = {
 
 export const CheckoutContext = createContext<ICheckoutContext>(defaultValues);
 
-const DELAY = 2000;
+const DELAY = 1500;
 
 export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Element => {
   const [checkoutData, setCheckoutData] = useState<CheckoutInterface | null>(checkoutMock)
@@ -36,6 +37,47 @@ export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Elemen
 
     setIsLoading({ status: false });
   }
+
+  const addProduct = async (productId: number) => {
+    doAction('Adicionando produto...', () => {
+      setCheckoutData((prevState => {
+        if (!prevState) {
+          return null;
+        }
+  
+        return {
+          ...prevState,
+          items: [
+            ...prevState.items,
+            { id: productId }
+          ]
+        }
+      }));
+    });
+  }
+
+  const removeProduct = async (productId: number) => {
+    doAction('Removendo produto...', () => {
+      setCheckoutData((prevState => {
+        if (!prevState) {
+          return null;
+        }
+
+        const newItems = prevState.items.reduce((previousValue: ItemInterface[], item: ItemInterface) => {
+          if (item.id === productId) {
+            return previousValue;
+          }
+          
+          return [...previousValue, item];
+        }, []);
+  
+        return {
+          ...prevState,
+          items: newItems
+        };
+      }));
+    });
+  } 
 
   const addCoupon = async (coupon: string) => {
     doAction('Adicionando cupom...', () => {
@@ -78,7 +120,8 @@ export const CheckoutStorage = ({ children }: ICheckoutStorageProps): JSX.Elemen
 
   const contextValue = {
     checkoutData,
-    setCheckoutData,
+    addProduct,
+    removeProduct,
     addCoupon,
     removeCoupon,
     pay,

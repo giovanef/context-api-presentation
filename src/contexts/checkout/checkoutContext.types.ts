@@ -7,9 +7,10 @@ export interface ICheckoutStorageProps {
 export interface ICheckoutContext {
   // estados do contexto
   checkoutData: CheckoutInterface | null;
-  setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutInterface | null>>;
 
   // ações do contexto
+  addProduct: (productId: number) => Promise<any>
+  removeProduct: (productId: number) => Promise<any>
   addCoupon: (coupon: string) => Promise<any>
   removeCoupon: () => Promise<any>
   pay: () => Promise<any>
