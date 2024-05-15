@@ -10,7 +10,9 @@ const CouponForm = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleAddCoupon = () => {
+  const handleAddCoupon = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     if (inputRef?.current?.value) {
       addCoupon(inputRef?.current.value);
       inputRef.current.value = '';
@@ -24,10 +26,12 @@ const CouponForm = () => {
   return (
     <>
       <div style={{ marginBottom: '4px' }}>Adicionar cupom</div>
-      <Flex>
-        <input type="text" ref={inputRef} style={{ flex: '1' }}></input>
-        <button onClick={handleAddCoupon}>Adicionar</button>
-      </Flex>
+      <form onSubmit={handleAddCoupon}>
+        <Flex>
+          <input type="text" ref={inputRef} style={{ flex: '1' }}></input>
+          <button type="submit">Adicionar</button>
+        </Flex>
+      </form>
 
       {!!checkoutData?.coupon && (
         <Flex style={{ marginTop: '8px' }}>

@@ -10,7 +10,9 @@ const ProductForm = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleAddProduct = () => {
+  const handleAddProduct = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     if (inputRef?.current?.value) {
       addProduct(Number(inputRef?.current.value));
       inputRef.current.value = '';
@@ -20,10 +22,12 @@ const ProductForm = () => {
   return (
     <>
       <div style={{ marginBottom: '4px' }}>Adicionar produto</div>
-      <Flex>
-        <input type="number" ref={inputRef} style={{ flex: '1' }}></input>
-        <button onClick={handleAddProduct}>Adicionar</button>
-      </Flex>
+      <form onSubmit={handleAddProduct}>
+        <Flex>
+          <input type="number" ref={inputRef} style={{ flex: '1' }}></input>
+          <button type="submit">Adicionar</button>
+        </Flex>
+      </form>
     </>
   );
 }
