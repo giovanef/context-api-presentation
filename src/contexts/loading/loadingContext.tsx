@@ -12,13 +12,8 @@ export const LoadingContext = createContext<ILoadingContext>(LOADING_DEFAULT_VAL
 export const LoadingProvider = ({ children }: ILoadingProviderProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<LoadingInterface>({ status: false })
 
-  const contextValue = {
-    isLoading,
-    setIsLoading
-  }
-
   return (
-    <LoadingContext.Provider value={contextValue}>
+    <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
       {children}
 
       {isLoading.status && (
